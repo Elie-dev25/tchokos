@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tchokos SARL — The Best, Made in Africa</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+</head>
+<body>
+
+<!-- NAVBAR (injecté par JS) -->
+<div id="navbar"></div>
+
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-tag">⭐ The Best · Made in Africa</span>
+        <h1>La mode africaine<br><em>à votre portée</em></h1>
+        <p class="hero-desc">
+          Chaussures, textiles, accessoires et électroménager — tout ce dont vous avez besoin,
+          en gros ou au détail, livré depuis Douala, Cameroun.
+        </p>
+        <div class="hero-btns">
+          <a href="pages/catalogue.html" class="btn btn-primary">Voir le catalogue</a>
+          <a href="pages/contact.html" class="btn btn-outline">Commande en gros</a>
+        </div>
+      </div>
+
+      <div class="hero-imgs">
+        <div class="hero-img-main">
+          <img src="images/sneaker-femme-damier.jpg" alt="Produits Tchokos">
+        </div>
+        <div class="hero-img-sm">
+          <img src="images/derby-homme-noir.jpg" alt="Chaussures homme">
+        </div>
+        <div class="hero-img-sm">
+          <img src="images/sac-wax-bleu-orange.jpg" alt="Sacs africains">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAND ─────────────────────────────────────────── -->
+<div class="stats-band">
+  <div class="container">
+    <div class="stat-item">
+      <div class="stat-num">366K+</div>
+      <div class="stat-label">Abonnés Facebook</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">18+</div>
+      <div class="stat-label">Produits disponibles</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Qualité garantie</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Akwa</div>
+      <div class="stat-label">Douala, Cameroun</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CATÉGORIES ─────────────────────────────────────────── -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Nos Catégories</h2>
+      <p>Tout ce dont vous avez besoin en un seul endroit</p>
+      <div class="divider"></div>
+    </div>
+    <div class="cat-grid">
+      <a href="pages/catalogue.html?cat=chaussures-femme" class="cat-card">
+        <img src="images/sandales-femme-multicolore.jpg" alt="Chaussures Femme">
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <h3>Chaussures Femme</h3>
+          <span>Sandales · Sneakers · Babouches</span>
+        </div>
+        <div class="cat-arrow">→</div>
+      </a>
+      <a href="pages/catalogue.html?cat=chaussures-homme" class="cat-card">
+        <img src="images/sneaker-homme-adidas.jpg" alt="Chaussures Homme">
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <h3>Chaussures Homme</h3>
+          <span>Tennis · Derby · Babouches</span>
+        </div>
+        <div class="cat-arrow">→</div>
+      </a>
+      <a href="pages/catalogue.html?cat=textile" class="cat-card">
+        <img src="images/sac-gris-urban.jpg" alt="Textile">
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <h3>Textile</h3>
+          <span>Draps · Casquettes · Sacs</span>
+        </div>
+        <div class="cat-arrow">→</div>
+      </a>
+      <a href="pages/catalogue.html?cat=electromenager" class="cat-card">
+        <img src="images/grill-maker.jpg" alt="Électroménager">
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <h3>Électroménager</h3>
+          <span>Grill · Broyeurs · Hachoirs</span>
+        </div>
+        <div class="cat-arrow">→</div>
+      </a>
+      <a href="pages/catalogue.html?cat=maison" class="cat-card">
+        <img src="images/coussin-tete-de-lit-velours-terracotta.jpg" alt="Maison & Déco">
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <h3>Maison & Déco</h3>
+          <span>Coussins · Napperons · Tapis</span>
+        </div>
+        <div class="cat-arrow">→</div>
+      </a>
+      <a href="pages/catalogue.html?cat=parfums" class="cat-card">
+        <img src="images/parfum-pink-love-edp-100ml.jpg" alt="Parfums">
+        <div class="cat-overlay"></div>
+        <div class="cat-info">
+          <h3>Parfums</h3>
+          <span>Femme · Homme · Mixte</span>
+        </div>
+        <div class="cat-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── NOUVEAUTÉS ─────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Nouveautés</h2>
+      <p>Les derniers arrivages en boutique</p>
+      <div class="divider"></div>
+    </div>
+    <div class="products-grid" id="home-products"></div>
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="pages/catalogue.html" class="btn btn-dark">Voir tout le catalogue →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── GROSSISTE BAND ─────────────────────────────────────── -->
+<section style="background:var(--black); padding:5rem 0;">
+  <div class="container text-center">
+    <p style="color:rgba(255,255,255,0.45); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:1rem;">COMMANDES EN GROS</p>
+    <h2 style="font-family:var(--font-head); color:white; font-size:clamp(1.8rem,3vw,2.6rem); margin-bottom:1rem;">
+      Vous êtes revendeur ?
+    </h2>
+    <p style="color:rgba(255,255,255,0.55); max-width:520px; margin:0 auto 2.5rem; font-size:15px; line-height:1.8;">
+      Profitez de nos prix grossiste et commandez depuis n'importe où au Cameroun.
+      Livraison disponible vers Yaoundé, Bafoussang, Bamenda et partout dans le pays.
+    </p>
+    <a href="pages/contact.html" class="btn btn-gold">Demander un devis grossiste →</a>
+  </div>
+</section>
+
+<!-- FOOTER (injecté par JS) -->
+<div id="footer"></div>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    injectComponents('home');
+
+    // Afficher les produits "nouveautés" (badge Nouveau/Tendance/Bestseller)
+    const featured = PRODUCTS.filter(p => p.badge && p.badge !== '').slice(0, 8);
+    const grid = document.getElementById('home-products');
+    grid.innerHTML = featured.map(p => `
+      <div class="product-card">
+        <div class="product-img">
+          ${p.badge ? `<span class="badge ${p.badgeType}">${p.badge}</span>` : ''}
+          <button class="btn-wishlist" title="Favoris">♡</button>
+          <img src="${resolveImg(p.image)}" alt="${p.name}" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-subcat">${p.subcat}</div>
+          <div class="product-name">${p.name}</div>
+        </div>
+        <div class="product-footer">
+          <span class="product-price">${formatPrice(p.price)}</span>
+          <a href="pages/product.html?id=${p.id}" class="btn btn-sm btn-dark">Voir →</a>
+        </div>
+      </div>
+    `).join('');
+  });
+</script>
+</body>
+</html>

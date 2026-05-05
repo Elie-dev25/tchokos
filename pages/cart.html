@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Panier — Tchokos SARL</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="page-banner">
+  <div class="container">
+    <h1>Mon Panier</h1>
+    <p>Vérifiez et finalisez votre commande</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div id="cart-content"></div>
+  </div>
+</section>
+
+<div id="footer"></div>
+
+<script src="../js/products.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    injectComponents('cart');
+    renderCartPage();
+  });
+
+  function renderCartPage() {
+    const cart = getCart();
+    const container = document.getElementById('cart-content');
+
+    if (cart.length === 0) {
+      container.innerHTML = `
+        <div class="cart-items-wrap">
+          <div class="cart-empty">
+            <div class="empty-icon">🛒</div>
+            <h3>Votre panier est vide</h3>
+            <p>Découvrez nos produits et ajoutez-en au panier.</p>
+            <a href="catalogue.html" class="btn btn-dark">Voir le catalogue</a>
+          </div>
+        </div>`;
+      return;
+    }
+
+    const total = getCartTotal();
+    const itemCount = cart.reduce((s, i) => s + i.qty, 0);
+
+    container.innerHTML = `
+      <div class="cart-layout">
+
+        <!-- Articles -->
+        <div class="cart-items-wrap">
+          <div class="cart-items-head">Articles (${itemCount})</div>
+          ${cart.map(item => `
+            <div class="cart-item" id="cart-row-${item.key.replace(/[^a-z0-9]/gi,'-')}">
+              <div class="cart-item-img">
+                <img src="${item.image}" alt="${item.name}">
+              </div>
+              <div class="cart-item-details">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-sub">${item.subcat}${item.size ? ' · Pointure ' + item.size : ''}</div>
+                <div class="cart-qty">
+                  <button onclick="changeCartQty('${item.key}', -1)">−</button>
+                  <span id="qty-${item.key.replace(/[^a-z0-9]/gi,'-')}">${item.qty}</span>
+                  <button onclick="changeCartQty('${item.key}', 1)">+</button>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div class="cart-item-price">${formatPrice(item.price * item.qty)}</div>
+                <div style="font-size:12px; color:var(--muted); margin-top:4px;">${formatPrice(item.price)} / unité</div>
+              </div>
+              <button class="cart-item-remove" onclick="deleteItem('${item.key}')" title="Supprimer">✕</button>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Résumé -->
+        <div class="cart-summary">
+          <h3>Résumé de commande</h3>
+          <div class="summary-row"><span>Articles (${itemCount})</span><span>${formatPrice(total)}</span></div>
+          <div class="summary-row"><span>Livraison</span><span style="color:var(--muted)">À confirmer</span></div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span>${formatPrice(total)}</span>
+          </div>
+          <div class="cart-actions">
+            <button class="btn btn-primary btn-full" onclick="checkoutWhatsApp()">
+              📱 Commander via WhatsApp
+            </button>
+            <a href="catalogue.html" class="btn btn-outline" style="background:transparent; color:var(--text); border-color:var(--border);">
+              ← Continuer les achats
+            </a>
+            <button onclick="if(confirm('Vider le panier ?')){clearCart(); renderCartPage();}"
+                    style="background:none; border:none; color:var(--muted); font-size:13px; cursor:pointer; text-decoration:underline; margin-top:0.25rem;">
+              Vider le panier
+            </button>
+          </div>
+          <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--border);">
+            <div class="feature-item" style="font-size:12px; color:var(--muted); margin-bottom:0.5rem;">✅ Paiement à la livraison disponible</div>
+            <div class="feature-item" style="font-size:12px; color:var(--muted); margin-bottom:0.5rem;">🚚 Livraison partout au Cameroun</div>
+            <div class="feature-item" style="font-size:12px; color:var(--muted);">📦 Prix grossiste sur demande</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function changeCartQty(key, delta) {
+    updateQty(key, delta);
+    renderCartPage();
+    updateCartBadges();
+  }
+
+  function deleteItem(key) {
+    removeFromCart(key);
+    renderCartPage();
+  }
+
+  function checkoutWhatsApp() {
+    const cart = getCart();
+    if (cart.length === 0) return;
+
+    let msg = 'Bonjour Tchokos SARL, je voudrais passer la commande suivante :\n\n';
+    cart.forEach(item => {
+      const sizeInfo = item.size ? ` (Pointure ${item.size})` : '';
+      msg += `• ${item.name}${sizeInfo} × ${item.qty} = ${formatPrice(item.price * item.qty)}\n`;
+    });
+    msg += `\nTOTAL : ${formatPrice(getCartTotal())}`;
+    msg += '\n\nMerci de me confirmer la disponibilité et les modalités de livraison.';
+
+    const url = `https://wa.me/237600000000?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  }
+</script>
+</body>
+</html>

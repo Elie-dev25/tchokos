@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Tchokos SARL</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
+  <style>
+    .success-msg { background:#e8f5e9; border:1px solid #a5d6a7; color:#2e7d32;
+                   padding:1rem 1.25rem; border-radius:var(--radius); font-size:14px;
+                   margin-bottom:1.5rem; display:none; }
+    .map-placeholder { background:var(--gray); border-radius:var(--radius); height:220px;
+                       display:flex; align-items:center; justify-content:center; flex-direction:column;
+                       gap:0.5rem; color:var(--muted); font-size:14px; margin-top:2rem;
+                       border:1px dashed var(--border); }
+    .social-links { display:flex; gap:0.75rem; margin-top:1.5rem; }
+    .social-btn { padding:8px 16px; border-radius:var(--radius); font-size:13px; font-weight:500;
+                  border:1.5px solid var(--border); color:var(--text); transition:var(--transition); display:flex; align-items:center; gap:6px; }
+    .social-btn:hover { background:var(--black); color:white; border-color:var(--black); }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="page-banner">
+  <div class="container">
+    <h1>Contactez-nous</h1>
+    <p>Disponible 7j/7 pour vos commandes et questions</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Infos contact -->
+      <div class="contact-intro">
+        <h2>Parlons de votre commande</h2>
+        <p>Que vous soyez un particulier ou un revendeur en gros, notre équipe est disponible pour vous accompagner. N'hésitez pas à nous envoyer un message ou à passer directement en boutique.</p>
+
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <h4>Adresse boutique</h4>
+              <p>Rond-Point Douche, Akwa<br>En face du Faya Hôtel, Douala</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <h4>Téléphone / WhatsApp</h4>
+              <p>+237 6XX XXX XXX<br>Disponible de 8h à 20h</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-text">
+              <h4>Horaires d'ouverture</h4>
+              <p>Lundi – Samedi : 8h00 – 20h00<br>Dimanche : 10h00 – 18h00</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📦</div>
+            <div class="contact-text">
+              <h4>Commandes en gros</h4>
+              <p>Prix spéciaux pour revendeurs.<br>Livraison vers toutes les villes du Cameroun.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="https://facebook.com/tchokos" target="_blank" class="social-btn">
+            📘 Facebook
+          </a>
+          <a href="https://wa.me/237600000000" target="_blank" class="social-btn">
+            📱 WhatsApp
+          </a>
+        </div>
+
+        <div class="map-placeholder">
+          <span style="font-size:2rem;">📍</span>
+          <strong>Rond-Point Douche, Akwa, Douala</strong>
+          <span style="font-size:12px;">Google Maps sera intégré ici</span>
+        </div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="contact-form">
+        <h3>Envoyer un message</h3>
+        <div id="success-msg" class="success-msg">
+          ✅ Votre message a été envoyé ! Nous vous contacterons dans les plus brefs délais.
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" id="f-prenom" placeholder="Jean">
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <input type="text" id="f-nom" placeholder="Dupont">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Téléphone / WhatsApp</label>
+          <input type="tel" id="f-tel" placeholder="+237 6XX XXX XXX">
+        </div>
+
+        <div class="form-group">
+          <label>Ville</label>
+          <select id="f-ville">
+            <option value="">Sélectionner une ville</option>
+            <option>Douala</option>
+            <option>Yaoundé</option>
+            <option>Bafoussam</option>
+            <option>Bamenda</option>
+            <option>Garoua</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Type de demande</label>
+          <select id="f-type">
+            <option>Achat au détail</option>
+            <option>Commande en gros / Revendeur</option>
+            <option>Renseignement sur un produit</option>
+            <option>Livraison</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="f-message" placeholder="Décrivez votre besoin, les produits qui vous intéressent, les quantités souhaitées..."></textarea>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="submitForm()">
+          Envoyer le message
+        </button>
+
+        <p style="margin-top:1rem; font-size:12px; color:var(--muted); text-align:center;">
+          Ou contactez-nous directement via WhatsApp pour une réponse instantanée.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div id="footer"></div>
+
+<script src="../js/products.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    injectComponents('contact');
+  });
+
+  function submitForm() {
+    const prenom  = document.getElementById('f-prenom').value.trim();
+    const nom     = document.getElementById('f-nom').value.trim();
+    const tel     = document.getElementById('f-tel').value.trim();
+    const ville   = document.getElementById('f-ville').value;
+    const type    = document.getElementById('f-type').value;
+    const message = document.getElementById('f-message').value.trim();
+
+    if (!prenom || !tel || !message) {
+      alert('Veuillez remplir au minimum : Prénom, Téléphone et Message.');
+      return;
+    }
+
+    // En production : remplacer par un appel API (EmailJS, FormSpree, etc.)
+    // Pour la démo, on génère un lien WhatsApp
+    const wa_msg = `Bonjour Tchokos SARL,\n\nNom : ${prenom} ${nom}\nTél : ${tel}\nVille : ${ville}\nDemande : ${type}\n\n${message}`;
+    const url = `https://wa.me/237600000000?text=${encodeURIComponent(wa_msg)}`;
+
+    document.getElementById('success-msg').style.display = 'block';
+    document.getElementById('success-msg').scrollIntoView({ behavior: 'smooth' });
+
+    setTimeout(() => {
+      window.open(url, '_blank');
+    }, 800);
+  }
+</script>
+</body>
+</html>

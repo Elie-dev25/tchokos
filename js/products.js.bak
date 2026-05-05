@@ -1,0 +1,278 @@
+/**
+ * TCHOKOS SARL — products.js
+ * Pour ajouter un produit : copier un objet et modifier les champs.
+ * Pour ajouter une catégorie : ajouter une entrée dans CATEGORIES et des produits avec le bon cat/subcat.
+ */
+
+const CATEGORIES = [
+  { id: 'chaussures-femme',  label: 'Chaussures Femme',  subcats: ['Sneakers', 'Sandales', 'Babouches', 'Talons'] },
+  { id: 'chaussures-homme',  label: 'Chaussures Homme',  subcats: ['Tennis', 'Derby', 'Babouches'] },
+  { id: 'textile',           label: 'Textile',            subcats: ['Draps', 'Casquettes', 'Sacs'] },
+  { id: 'electromenager',    label: 'Électroménager',     subcats: ['Cuisine'] },
+];
+
+const PRODUCTS = [
+  // ── CHAUSSURES FEMME ──────────────────────────────────────
+  {
+    id: 1,
+    name: 'Sneaker Damier Blanc/Lavande',
+    cat: 'chaussures-femme',
+    subcat: 'Sneakers',
+    price: 15000,
+    badge: 'Nouveau',
+    badgeType: 'badge-red',
+    image: '../images/sneaker-femme-damier.jpg',
+    sizes: ['36','37','38','39','40','41'],
+    description: 'Sneaker tendance motif damier blanc et lavande. Semelle caoutchouc naturel gum. Légère et confortable pour un look urbain au quotidien. Disponible en plusieurs pointures.',
+    inStock: true,
+  },
+  {
+    id: 2,
+    name: 'Sandales Compensées Multicolore',
+    cat: 'chaussures-femme',
+    subcat: 'Sandales',
+    price: 12000,
+    badge: 'Tendance',
+    badgeType: 'badge-gold',
+    image: '../images/sandales-femme-multicolore.jpg',
+    sizes: ['36','37','38','39','40'],
+    description: 'Sandales compensées à bandes multicolores incrustées. Semelle pailletée noire ultra-confortable. Idéale pour les soirées, mariages et sorties.',
+    inStock: true,
+  },
+  {
+    id: 3,
+    name: 'Mules Plateforme Noir/Rouge',
+    cat: 'chaussures-femme',
+    subcat: 'Babouches',
+    price: 10000,
+    badge: '',
+    badgeType: '',
+    image: '../images/mules-femme-noir-rouge.jpg',
+    sizes: ['36','37','38','39','40','41'],
+    description: 'Mules plateforme motif signature grec, bande rouge et noire. Semelle noire épaisse. Look luxueux inspiré des grandes maisons au quotidien.',
+    inStock: true,
+  },
+  {
+    id: 4,
+    name: 'Mules Plateforme Camel/Blanc',
+    cat: 'chaussures-femme',
+    subcat: 'Babouches',
+    price: 10000,
+    badge: '',
+    badgeType: '',
+    image: '../images/mules-femme-camel.jpg',
+    sizes: ['36','37','38','39','40'],
+    description: 'Mules plateforme finition camel et blanc, logo brodé double C. Légèreté et élégance garanties. Parfait pour le bureau ou une sortie décontractée.',
+    inStock: true,
+  },
+
+  // ── CHAUSSURES HOMME ──────────────────────────────────────
+  {
+    id: 5,
+    name: 'Derby Cuir Noir Semelle Crantée',
+    cat: 'chaussures-homme',
+    subcat: 'Derby',
+    price: 18000,
+    badge: 'Bestseller',
+    badgeType: 'badge-dark',
+    image: '../images/derby-homme-noir.jpg',
+    sizes: ['40','41','42','43','44','45'],
+    description: 'Derby en cuir véritable noir, semelle crantée ultra-robuste. Le classique indémodable pour homme. Coutures blanches contrastées. Idéal bureau ou soirée.',
+    inStock: true,
+  },
+  {
+    id: 6,
+    name: 'Babouche Cuir Texturé Marron',
+    cat: 'chaussures-homme',
+    subcat: 'Babouches',
+    price: 9000,
+    badge: '',
+    badgeType: '',
+    image: '../images/babouche-homme-marron.jpg',
+    sizes: ['40','41','42','43','44'],
+    description: 'Babouche homme en cuir texturé marron foncé, boucle métal argenté. Confort absolu pour les journées longues. Allure décontractée et sophistiquée.',
+    inStock: true,
+  },
+  {
+    id: 7,
+    name: 'Sneaker Adidas Running Gris/Noir',
+    cat: 'chaussures-homme',
+    subcat: 'Tennis',
+    price: 16000,
+    badge: 'Nouveau',
+    badgeType: 'badge-red',
+    image: '../images/sneaker-homme-adidas.jpg',
+    sizes: ['40','41','42','43','44','45'],
+    description: 'Sneaker running bi-matière gris anthracite et noir, semelle Boost amortissante. Performance et style urbain réunis. Tige mesh respirante.',
+    inStock: true,
+  },
+  {
+    id: 8,
+    name: 'Nike SB Dunk Low Bleu Marine',
+    cat: 'chaussures-homme',
+    subcat: 'Tennis',
+    price: 17000,
+    badge: '',
+    badgeType: '',
+    image: '../images/sneaker-homme-nike.jpg',
+    sizes: ['40','41','42','43','44','45'],
+    description: 'Nike SB Dunk Low coloris bleu marine et orange. Semelle caoutchouc gum. Un classique du skatewear revisité, parfait en usage quotidien.',
+    inStock: true,
+  },
+
+  // ── TEXTILE ───────────────────────────────────────────────
+  {
+    id: 9,
+    name: 'Drap Fleuri Bleu — 3 Places',
+    cat: 'textile',
+    subcat: 'Draps',
+    price: 25000,
+    badge: '',
+    badgeType: '',
+    image: '../images/drap-fleurs-bleu.jpg',
+    sizes: [],
+    description: 'Drap 3 places coton 100%, motif floral bleu élégant. Toucher doux et frais. Contenu : 2 draps 240×260 cm + 2 taies d\'oreiller 60×80 cm. Marque Dalia.',
+    inStock: true,
+  },
+  {
+    id: 10,
+    name: 'Drap Géométrique Coloré — 3 Places',
+    cat: 'textile',
+    subcat: 'Draps',
+    price: 25000,
+    badge: '',
+    badgeType: '',
+    image: '../images/drap-geometrique.jpg',
+    sizes: [],
+    description: 'Drap 3 places coton 100%, motif géométrique multicolore moderne. Contenu : 2 draps 240×260 cm + 2 taies 60×80 cm. Marque Dalia.',
+    inStock: true,
+  },
+  {
+    id: 11,
+    name: 'Casquettes Alo Classic (lot de 2)',
+    cat: 'textile',
+    subcat: 'Casquettes',
+    price: 8000,
+    badge: '',
+    badgeType: '',
+    image: '../images/casquettes-alo-classic.jpg',
+    sizes: [],
+    description: 'Lot de 2 casquettes Alo brodées, coloris camel et noir. Tissu coton épais, visière structurée. Réglable à l\'arrière. Style sport premium.',
+    inStock: true,
+  },
+  {
+    id: 12,
+    name: 'Casquettes Alo Distressed (lot de 2)',
+    cat: 'textile',
+    subcat: 'Casquettes',
+    price: 8000,
+    badge: 'Nouveau',
+    badgeType: 'badge-red',
+    image: '../images/casquettes-alo-distressed.jpg',
+    sizes: [],
+    description: 'Lot de 2 casquettes Alo effet usé distressed, blanc et noir marine. Look vintage et urbain. Broderie logo ton sur ton.',
+    inStock: true,
+  },
+  {
+    id: 13,
+    name: 'Sac à Dos Tchokos Urban Gris',
+    cat: 'textile',
+    subcat: 'Sacs',
+    price: 14000,
+    badge: 'Made in Africa',
+    badgeType: 'badge-gold',
+    image: '../images/sac-gris-urban.jpg',
+    sizes: [],
+    description: 'Sac à dos urbain gris anthracite, badge Tchokos doré. Plusieurs compartiments, fermetures éclair dorées. Robuste et léger. Capacité : 25L environ.',
+    inStock: true,
+  },
+  {
+    id: 14,
+    name: 'Sac à Dos Wax Bleu/Orange',
+    cat: 'textile',
+    subcat: 'Sacs',
+    price: 12000,
+    badge: 'Made in Africa',
+    badgeType: 'badge-gold',
+    image: '../images/sac-wax-bleu-orange.jpg',
+    sizes: [],
+    description: 'Sac à dos en tissu wax africain bleu et orange, logo Tchokos brodé sur la poche frontale. Fait main. Pièce unique qui célèbre le savoir-faire africain.',
+    inStock: true,
+  },
+  {
+    id: 15,
+    name: 'Sac à Dos Wax Kaki/Bogolan',
+    cat: 'textile',
+    subcat: 'Sacs',
+    price: 12000,
+    badge: 'Made in Africa',
+    badgeType: 'badge-gold',
+    image: '../images/sac-wax-kaki.jpg',
+    sizes: [],
+    description: 'Sac à dos tissu kaki avec panneau bogolan africain jaune et bordeaux. Bretelles rembourrées. Fait main par des artisans locaux.',
+    inStock: true,
+  },
+
+  // ── ÉLECTROMÉNAGER ────────────────────────────────────────
+  {
+    id: 16,
+    name: 'Grill / Sandwich Maker Oarona 750W',
+    cat: 'electromenager',
+    subcat: 'Cuisine',
+    price: 11000,
+    badge: 'Promo',
+    badgeType: 'badge-red',
+    image: '../images/grill-maker.jpg',
+    sizes: [],
+    description: 'Appareil 3-en-1 multifonction : grill, sandwich maker et waffle maker. Puissance 750W. Revêtement anti-adhésif. Modèle LV-885. Marque Oarona.',
+    inStock: true,
+  },
+  {
+    id: 17,
+    name: 'Broyeur Multifonction Hoffmans 1000W',
+    cat: 'electromenager',
+    subcat: 'Cuisine',
+    price: 13000,
+    badge: '',
+    badgeType: '',
+    image: '../images/broyeur-hoffmans.jpg',
+    sizes: [],
+    description: 'Broyeur professionnel en inox, capacité 150g, 1000W. Garantie 18 mois. Idéal pour les épices, le café et les céréales. Modèle HM-9081. Marque Hoffmans.',
+    inStock: true,
+  },
+  {
+    id: 18,
+    name: 'Hachoir Électrique Hoffmans 1200W',
+    cat: 'electromenager',
+    subcat: 'Cuisine',
+    price: 15000,
+    badge: '',
+    badgeType: '',
+    image: '../images/hachoir-hoffmans.jpg',
+    sizes: [],
+    description: 'Hachoir multifonction 2L, 1200W, bol inox SUS304. Hache viandes et légumes facilement. 12 mois de garantie. Modèle HM-8861. Marque Hoffmans.',
+    inStock: true,
+  },
+];
+
+/**
+ * Formate un prix en FCFA
+ */
+function formatPrice(price) {
+  return price.toLocaleString('fr-FR') + ' FCFA';
+}
+
+/**
+ * Récupère un produit par son ID
+ */
+function getProductById(id) {
+  return PRODUCTS.find(p => p.id === parseInt(id));
+}
+
+/**
+ * Filtre les produits par catégorie
+ */
+function getProductsByCategory(catId) {
+  if (!catId || catId === 'tous') return PRODUCTS;
+  return PRODUCTS.filter(p => p.cat === catId);
+}

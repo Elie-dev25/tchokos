@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produit — Tchokos SARL</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
+  <style>
+    .not-found { text-align:center; padding:6rem 2rem; }
+    .not-found h2 { font-family:var(--font-head); font-size:2rem; margin-bottom:1rem; }
+    .not-found p { color:var(--muted); margin-bottom:1.5rem; }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">Accueil</a>
+      <span>›</span>
+      <a href="catalogue.html">Catalogue</a>
+      <span>›</span>
+      <span id="bc-name">Produit</span>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL -->
+<section class="detail-section">
+  <div class="container">
+    <div id="product-content"></div>
+  </div>
+</section>
+
+<!-- PRODUITS SIMILAIRES -->
+<section class="section section-alt" id="similar-section" style="display:none">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Vous aimerez aussi</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="products-grid" id="similar-products"></div>
+  </div>
+</section>
+
+<div id="footer"></div>
+
+<script src="../js/products.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  let selectedSize = null;
+  let currentProductId = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    injectComponents('catalogue');
+
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'));
+    const product = getProductById(id);
+
+    if (!product) {
+      document.getElementById('product-content').innerHTML = `
+        <div class="not-found">
+          <div style="font-size:3rem; margin-bottom:1rem;">😕</div>
+          <h2>Produit introuvable</h2>
+          <p>Ce produit n'existe pas ou a été retiré du catalogue.</p>
+          <a href="catalogue.html" class="btn btn-dark">Retour au catalogue</a>
+        </div>`;
+      return;
+    }
+
+    currentProductId = product.id;
+    document.title = `${product.name} — Tchokos SARL`;
+    document.getElementById('bc-name').textContent = product.name;
+
+    const hasSizes = product.sizes && product.sizes.length > 0;
+    selectedSize = hasSizes ? product.sizes[1] || product.sizes[0] : null;
+
+    document.getElementById('product-content').innerHTML = `
+      <div class="detail-grid">
+
+        <!-- Galerie -->
+        <div class="detail-gallery">
+          <div class="gallery-thumbs" id="thumbs">
+            <div class="gallery-thumb active" onclick="setThumb(this, '${product.image}')">
+              <img src="${product.image}" alt="${product.name}">
+            </div>
+          </div>
+          <div class="gallery-main">
+            <img src="${product.image}" id="main-img" alt="${product.name}">
+          </div>
+        </div>
+
+        <!-- Infos -->
+        <div class="detail-info">
+          <div class="detail-subcat">${product.cat.replace(/-/g,' ').toUpperCase()} · ${product.subcat}</div>
+          <h1 class="detail-name">${product.name}</h1>
+          <div class="detail-price">${formatPrice(product.price)}</div>
+          <div class="detail-price-gross">Prix détail — <strong>Contactez-nous</strong> pour le prix grossiste</div>
+          <p class="detail-desc">${product.description}</p>
+
+          ${hasSizes ? `
+            <div class="option-label">POINTURE SÉLECTIONNÉE : <strong id="selected-size-label">${selectedSize}</strong></div>
+            <div class="sizes-grid" id="sizes-grid">
+              ${product.sizes.map((s, i) => `
+                <button class="size-btn ${i === 1 ? 'active' : ''}" onclick="selectSize('${s}', this)">${s}</button>
+              `).join('')}
+            </div>
+          ` : ''}
+
+          <div class="option-label">QUANTITÉ</div>
+          <div class="qty-selector" style="margin-bottom:1.75rem;">
+            <button class="qty-btn" onclick="changeQtyDisplay(-1)">−</button>
+            <input class="qty-num" id="qty-display" type="number" value="1" min="1" max="99" readonly>
+            <button class="qty-btn" onclick="changeQtyDisplay(1)">+</button>
+          </div>
+
+          <div class="detail-actions">
+            <button class="btn btn-primary btn-full" onclick="handleAddToCart()">
+              🛒 Ajouter au panier
+            </button>
+            <button class="btn btn-wa btn-full" onclick="orderViaWhatsApp()">
+              📱 Commander via WhatsApp
+            </button>
+          </div>
+
+          <div class="detail-features">
+            <div class="feature-item"><span class="icon">🚚</span> Livraison nationale</div>
+            <div class="feature-item"><span class="icon">✅</span> Qualité garantie</div>
+            <div class="feature-item"><span class="icon">📦</span> Disponible en gros</div>
+            <div class="feature-item"><span class="icon">🔄</span> Échange possible</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Produits similaires
+    const similar = PRODUCTS.filter(p => p.cat === product.cat && p.id !== product.id).slice(0, 4);
+    if (similar.length > 0) {
+      document.getElementById('similar-section').style.display = 'block';
+      document.getElementById('similar-products').innerHTML = similar.map(p => `
+        <div class="product-card">
+          <a href="product.html?id=${p.id}">
+            <div class="product-img">
+              ${p.badge ? `<span class="badge ${p.badgeType}">${p.badge}</span>` : ''}
+              <img src="${p.image}" alt="${p.name}" loading="lazy">
+            </div>
+            <div class="product-body">
+              <div class="product-subcat">${p.subcat}</div>
+              <div class="product-name">${p.name}</div>
+            </div>
+          </a>
+          <div class="product-footer">
+            <span class="product-price">${formatPrice(p.price)}</span>
+            <button class="btn-add-cart" onclick="addToCart(${p.id})">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+  });
+
+  function setThumb(el, src) {
+    document.getElementById('main-img').src = src;
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function selectSize(size, btn) {
+    selectedSize = size;
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const label = document.getElementById('selected-size-label');
+    if (label) label.textContent = size;
+  }
+
+  function changeQtyDisplay(delta) {
+    const input = document.getElementById('qty-display');
+    const newVal = Math.max(1, parseInt(input.value) + delta);
+    input.value = newVal;
+  }
+
+  function handleAddToCart() {
+    const qty = parseInt(document.getElementById('qty-display').value) || 1;
+    for (let i = 0; i < qty; i++) {
+      addToCart(currentProductId, selectedSize);
+    }
+  }
+
+  function orderViaWhatsApp() {
+    const product = getProductById(currentProductId);
+    if (!product) return;
+    const qty = document.getElementById('qty-display').value;
+    const sizeInfo = selectedSize ? ` (Pointure ${selectedSize})` : '';
+    const msg = `Bonjour Tchokos SARL,\n\nJe souhaite commander :\n\n- ${product.name}${sizeInfo} x${qty}\n  Prix : ${formatPrice(product.price)}\n\nMerci de me confirmer la disponibilité.`;
+    const url = `https://wa.me/237600000000?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  }
+</script>
+</body>
+</html>
